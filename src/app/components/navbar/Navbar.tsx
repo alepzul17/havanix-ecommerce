@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";
+import DesktopMenu from "./DesktopMenu";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function Navbar() {
       <Link href={"/"} className="text-primary font-bold text-4xl text-center">
         Havanix
       </Link>
+      <DesktopMenu />
 
       <div className="flex gap-5">
         <button className="cursor-pointer">

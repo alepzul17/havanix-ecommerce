@@ -6,4 +6,14 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.0.11"],
 };
 
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+    ],
+  },
+};
 export default nextConfig;

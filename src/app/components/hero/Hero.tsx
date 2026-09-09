@@ -24,7 +24,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-1/5 flex flex-col gap-6 m-4 items-start md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+      <div className="absolute bottom-1/5 flex flex-col gap-6 m-4 items-start sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2">
         <h3 className="text-background text-5xl font-bold md:text-6xl">
           WEAR YOUR OWN WAY.
         </h3>

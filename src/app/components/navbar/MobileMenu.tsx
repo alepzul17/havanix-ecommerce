@@ -7,7 +7,7 @@ type MobileMenuProps = {
 export default function MobileMenu({ isMenuOpen, setIsOpen }: MobileMenuProps) {
   return (
     <div
-      className={`${isMenuOpen ? "absolute flex justify-between w-full bg-background left-0 top-0 h-full p-4" : "hidden"}`}
+      className={`${isMenuOpen ? "absolute z-50 flex justify-between w-full bg-background left-0 top-0 h-full p-4" : "hidden"}`}
     >
       <div className="mt-7">
         <Link href={"/"} className="text-5xl text-primary font-semibold">

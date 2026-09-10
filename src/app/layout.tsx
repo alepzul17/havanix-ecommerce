@@ -24,6 +24,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${inter.variable} h-full antialiased`}
     >
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+      ></meta>
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}

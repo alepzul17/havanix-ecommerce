@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import Card from "./product";
 
 type Product = {
   id: number;
@@ -13,36 +13,37 @@ type Product = {
   price: number;
   category: string;
 };
+export default function NewArrivals({
+  shoes,
+  watches,
+}: {
+  shoes: Product[];
+  watches: Product[];
+}) {
+  const [category, setCategory] = useState<"shoes" | "watches">("shoes");
 
-export default function NewArrivals({ products }: { products: Product[] }) {
+  const products = category === "shoes" ? shoes : watches;
   return (
-    <section className="w-full overflow-hidden flex flex-col ">
-      <h2 className=" text-4xl font-semibold underline underline-offset-8 text-center p-8">
-        New Arrivals
-      </h2>
-
-      {/* YANG BOLEH SCROLL SAHAJA */}
-      <div className=" w-full overflow-y-hidden">
-        <div className="flex w-max gap-1 ">
-          {products.map((product: Product) => (
-            <div key={product.id} className="shrink-0 md:w-50 w-60">
-              <Image
-                src={product.images[0]}
-                alt={product.title}
-                width={200}
-                height={100}
-              />
-              <div className="ml-3 ">
-                <h4 className="mt-2 text-xl font-semibold text-wrap">
-                  {product.title}
-                </h4>
-                <p className="font-extralight">{product.category}</p>
-                <p className="font-extralight">${product.price}</p>
-              </div>
-            </div>
-          ))}
+    <section className="w-full flex flex-col">
+      <div className="ml-7">
+        <h2 className=" text-4xl font-semibold my-5">New Arrivals</h2>
+        <div className="mb-6 flex gap-4">
+          <button
+            className={`text-xl cursor-pointer hover:underline hover:underline-offset-8 ${category == "shoes" ? "underline underline-offset-8" : ""}`}
+            onClick={() => setCategory("shoes")}
+          >
+            Shoes
+          </button>
+          <button
+            className={`ml-6 text-xl cursor-pointer hover:underline hover:underline-offset-8 ${category == "watches" ? "underline underline-offset-8" : ""}`}
+            onClick={() => setCategory("watches")}
+          >
+            watches
+          </button>
         </div>
       </div>
+      {/* YANG BOLEH SCROLL SAHAJA */}
+      <Card products={products} />
     </section>
   );
 }

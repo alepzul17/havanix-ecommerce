@@ -33,7 +33,7 @@ export default function Card({ products }: { products: Product[] }) {
               width={200}
               height={100}
             />
-            <div className="ml-3 ">
+            <div className="ml-4">
               <h4 className="mt-2 text-xl font-semibold text-wrap">
                 {item.title}
               </h4>

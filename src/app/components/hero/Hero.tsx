@@ -4,28 +4,28 @@ export default function Hero() {
   return (
     <div className="relative">
       <div className="flex w-full">
-        <div className="w-full md:w-1/2">
+        <div className="w-full sm:w-1/2">
           <Image
             src="/model3.png"
             alt=""
             width={600}
             height={400}
-            className="md:w-full md:h-screen"
+            className="sm:w-full sm:h-screen"
           />
         </div>
-        <div className="hidden md:block md:w-1/2">
+        <div className="hidden sm:block sm:w-1/2">
           <Image
             src="/model4.webp"
             alt=""
             width={600}
             height={400}
-            className="w-full h-full md:w-full md:h-screen"
+            className="w-full h-full sm:w-full sm:h-screen"
           />
         </div>
       </div>
 
       <div className="absolute bottom-1/5 flex flex-col gap-6 m-4 items-start sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2">
-        <h3 className="text-background text-5xl font-bold md:text-6xl">
+        <h3 className="text-background text-5xl font-bold sm:text-6xl">
           WEAR YOUR OWN WAY.
         </h3>
         <p className="text-2xl font-light text-secondary">

@@ -8,7 +8,7 @@ export default function DesktopMenu() {
           <Link href={"/"}>Home</Link>
         </li>
         <li className="list-none hover:underline hover:underline-offset-8">
-          <Link href={"/"}>Shop</Link>
+          <Link href={"/products"}>Shop</Link>
         </li>
         <li className="list-none hover:underline hover:underline-offset-8">
           <Link href={"/"}>New Arrivals</Link>

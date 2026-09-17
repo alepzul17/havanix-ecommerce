@@ -28,10 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         name="viewport"
         content="width=device-width, initial-scale=1"
       ></meta>
-      <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 type Product = {
   id: number;
   title: string;
@@ -10,21 +11,15 @@ type Product = {
   price: number;
   category: string;
 };
-export default function Card({ products }: { products: Product[] }) {
-  const item = products
-    .sort(
-      (a, b) =>
-        new Date(b.meta.createdAt).getTime() -
-        new Date(a.meta.createdAt).getTime(),
-    )
-    .slice(0, 5);
+
+export default function ProductCard({ products }: { products: Product[] }) {
   return (
-    <div className=" w-full overflow-x-auto overflow-y-hidden">
-      <div className="flex w-max gap-1 ">
-        {item.map((item: Product) => (
+    <div className="overflow-hidden">
+      <div className="grid grid-cols-2 w-screen gap-1 mb-9">
+        {products.map((item: Product) => (
           <div
             key={item.id}
-            className="shrink-0 md:w-70 w-60 hover:border hover:border-black overflow-hidden"
+            className="shrink-0 md:w-70 w-52 hover:border hover:border-black overflow-hidden"
           >
             <Image
               src={item.images[0]}
@@ -33,7 +28,7 @@ export default function Card({ products }: { products: Product[] }) {
               height={100}
             />
             <div className="ml-4">
-              <h4 className="mt-2 text-xl font-semibold text-wrap">
+              <h4 className="mt-2 text-base font-bold text-wrap">
                 {item.title}
               </h4>
               <p className="font-extralight">{item.category}</p>

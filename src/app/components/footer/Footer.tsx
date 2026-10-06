@@ -32,15 +32,10 @@ export default function Footer() {
         </Link>
         <Link href={"#"}>
           <li className="hover:text-white">Shop</li>
-        </Link>{" "}
-        <Link href={"#"}>
-          <li className="hover:text-white">New Arrivals</li>
-        </Link>{" "}
+        </Link>
+
         <Link href={"#"}>
           <li className="hover:text-white">About</li>
-        </Link>{" "}
-        <Link href={"#"}>
-          <li className="hover:text-white">Contact us</li>
         </Link>
       </ul>
       <hr className="border-white/50 my-13 sm:border-none" />

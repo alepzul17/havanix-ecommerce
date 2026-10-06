@@ -11,10 +11,7 @@ export default function DesktopMenu() {
           <Link href={"/products"}>Shop</Link>
         </li>
         <li className="list-none hover:underline hover:underline-offset-8">
-          <Link href={"/"}>New Arrivals</Link>
-        </li>
-        <li className="list-none hover:underline hover:underline-offset-8">
-          <Link href={"/"}>About</Link>
+          <Link href={"/about"}>About Us</Link>
         </li>
       </ul>
     </div>

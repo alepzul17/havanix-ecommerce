@@ -18,27 +18,29 @@ export default function Products({
   shoes,
   watches,
   shirts,
+  gender,
 }: {
   shoes: Product[];
   watches: Product[];
   shirts: Product[];
+  gender: string;
 }) {
   const [category, setCategory] = useState<"shoes" | "watches" | "shirts">(
     "shirts",
   );
   const products =
     category === "shoes" ? shoes : category === "watches" ? watches : shirts;
-
+  console.log(gender);
   return (
     <>
       <div className="p-6">
-        <h1 className="font-semibold text-2xl mb-4">Men</h1>
+        <h1 className="font-semibold text-2xl mb-4">{gender}</h1>
         <div className="mb-6 flex gap-4">
           <button
             className={`text-xl cursor-pointer hover:underline hover:underline-offset-8 ${category == "shirts" ? "underline underline-offset-8" : ""}`}
             onClick={() => setCategory("shirts")}
           >
-            Shirts
+            Clothing
           </button>
           <button
             className={`ml-6 text-xl cursor-pointer hover:underline hover:underline-offset-8 ${category == "shoes" ? "underline underline-offset-8" : ""}`}

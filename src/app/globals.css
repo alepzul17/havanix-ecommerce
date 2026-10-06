@@ -3,9 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #ff4d00;
+  --primary: oklch(70.5% 0.213 47.604);
   --secondary: #e5e5e5;
   --muted: #a0a0a0;
+  --eggshell: #f0ead6;
 }
 
 @theme inline {

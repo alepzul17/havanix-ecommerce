@@ -22,10 +22,7 @@ export default function MobileMenu({ isMenuOpen, setIsOpen }: MobileMenuProps) {
             <Link href={"/products"}>Shop</Link>
           </li>
           <li className="list-none mb-6">
-            <Link href={"/"}>New Arrivals</Link>
-          </li>
-          <li className="list-none mb-6">
-            <Link href={"/"}>About</Link>
+            <Link href={"/about"}>About Us</Link>
           </li>
         </ul>
       </div>

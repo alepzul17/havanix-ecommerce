@@ -11,7 +11,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentImage = images[currentIndex];
   return (
-    <div className="w-full px-2">
+    <div className="w-full px-2 sm:w-1/2 sm:p-4">
       <div className="relative aspect-square w-full overflow-hidden">
         <Image
           src={currentImage}

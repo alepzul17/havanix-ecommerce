@@ -25,10 +25,14 @@ export default async function Page({
   return (
     <div>
       <Navbar />
+      <div className="sm:flex items-center">
+        <ProductGallery images={data.images} title={data.title} />
+        <div>
+          <ProductInfo product={productInfo} />
+          <AddToCart data={data} />
+        </div>
+      </div>
 
-      <ProductGallery images={data.images} title={data.title} />
-      <ProductInfo product={productInfo} />
-      <AddToCart data={data} />
       {/* <Footer /> */}
     </div>
   );

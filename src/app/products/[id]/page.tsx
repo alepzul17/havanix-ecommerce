@@ -1,6 +1,6 @@
 "use server";
-import { getProductsById } from "@/api/product";
-import Footer from "@/app/components/footer/Footer";
+import { getProductsById } from "@/app/api/product";
+// import Footer from "@/app/components/footer/Footer";
 import Navbar from "@/app/components/navbar/Navbar";
 import ProductGallery from "./ProductGallery";
 import ProductInfo from "./ProductInfo";

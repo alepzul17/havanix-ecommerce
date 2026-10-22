@@ -1,4 +1,4 @@
-import { getProductsByCategory } from "@/api/product";
+import { getProductsByCategory } from "@/app/api/product";
 import Navbar from "../components/navbar/Navbar";
 import Products from "./product";
 import Footer from "../components/footer/Footer";

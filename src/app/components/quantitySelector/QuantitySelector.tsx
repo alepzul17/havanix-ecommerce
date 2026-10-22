@@ -1,12 +1,13 @@
+import { useState } from "react";
+
 export default function QuantitySelector({
   stock,
-  quantity,
-  setQuantity,
+  existingQuantity,
 }: {
   stock: number;
-  quantity: number;
-  setQuantity: (quantity: number) => void;
+  existingQuantity: number;
 }) {
+  const [quantity, setQuantity] = useState(existingQuantity);
   return (
     <div className="border border-teal-200 p-0 w-fit mt-3 flex items-center justify-between gap-5 ">
       <button

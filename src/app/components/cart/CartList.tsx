@@ -1,6 +1,6 @@
 "use client";
 
-import { getProductsById } from "@/api/product";
+import { getProductsById } from "@/app/api/product";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ type Product = {
 };
 
 export default function CartList() {
-  const { cart, setCart } = useCart();
+  const { cart } = useCart();
   const [product, setProduct] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function CartList() {
     <div className="flex flex-col my-10 p-5">
       <h1 className="text-3xl font-extrabold text-center mb-6">Cart</h1>
 
-      <div className="sm:flex sm:justify-between p-5">
+      <div className="sm:flex sm:justify-center gap-5 sm:items-center">
         {product.length === 0 ? (
           <h3 className="text-2xl font-bold text-center w-1/2 ">
             There are no items in your cart
@@ -74,24 +74,15 @@ export default function CartList() {
                   <p>$ {item.totalPrice}</p>
                   <QuantitySelector
                     stock={item.stock}
-                    quantity={item.quantity}
-                    setQuantity={(newQuantity) => {
-                      setCart(
-                        cart.map((cartItem) =>
-                          cartItem.id === item.id
-                            ? { ...cartItem, quantity: newQuantity }
-                            : cartItem,
-                        ),
-                      );
-                    }}
+                    existingQuantity={item.quantity}
                   />
                 </div>
               </div>
             ))}
           </div>
         )}
-
-        <div className="w-full rounded-2xl mt-12 bg-teal-100 p-3">
+        {/* order summary section */}
+        <div className="w-full sm:w-1/2 rounded-2xl mt-12 bg-teal-100 p-3">
           <h3 className="text-xl font-semibold tracking-wide">Order Summary</h3>
           <div className="mt-5 flex justify-between">
             <p className="text-xl font-light">Sub total</p>

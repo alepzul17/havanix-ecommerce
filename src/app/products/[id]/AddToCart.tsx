@@ -2,33 +2,60 @@
 import { Product } from "@/app/api/product";
 
 import { useCart } from "@/context/CartContext";
+import { useSession } from "next-auth/react";
 
 export default function AddToCart({ data }: { data: Product }) {
-  const { cart, setCart } = useCart();
-  //   console.log(cartContext);
-  function handleClick() {
-    const existingProduct = cart.find((item) => item.id === data.id);
+  const { status } = useSession();
+  const { setCart } = useCart();
+  async function handleClick() {
+    if (status === "loading") return;
 
-    if (existingProduct) {
-      const updatedCart = cart.map((item) =>
-        item.id === data.id
-          ? {
-              ...item,
-              quantity: item.quantity++,
-            }
-          : item,
-      );
+    if (status === "authenticated") {
+      const response = await fetch("/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: data.id,
+        }),
+      });
 
-      setCart(updatedCart);
-    } else {
-      const newProduct = {
-        id: data.id,
-        price: data.price,
-        quantity: 1,
-      };
+      const result = await response.json();
 
-      setCart([...cart, newProduct]);
+      if (!response.ok) {
+        alert(result.message);
+        return;
+      }
+
+      setCart((currentCart) => {
+        const existingProduct = currentCart.find((item) => item.id === data.id);
+
+        if (existingProduct) {
+          return currentCart.map((item) =>
+            item.id === data.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item,
+          );
+        }
+
+        return [...currentCart, { id: data.id, quantity: 1 }];
+      });
+
+      return;
     }
+
+    setCart((currentCart) => {
+      const existingProduct = currentCart.find((item) => item.id === data.id);
+
+      if (existingProduct) {
+        return currentCart.map((item) =>
+          item.id === data.id ? { ...item, quantity: item.quantity + 1 } : item,
+        );
+      }
+
+      return [...currentCart, { id: data.id, quantity: 1 }];
+    });
   }
 
   return (

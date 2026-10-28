@@ -1,5 +1,6 @@
-import { useState } from "react";
-
+import { useState, type SyntheticEvent, type ChangeEvent } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 export default function Register() {
   const [fullname, setfullname] = useState("");
   const [email, setEmail] = useState("");
@@ -9,27 +10,28 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordSame, setIsPasswordSame] = useState(true);
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
-  function validateEmail(e: React.ChangeEvent<HTMLInputElement>) {
+  function validateEmail(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setEmail(value);
     setIsEmailInvalid(value.includes("@"));
   }
 
-  function validatePassword(e: React.ChangeEvent<HTMLInputElement>) {
+  function validatePassword(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setPassword(value);
     setIsPasswordInvalid(value.length >= 8);
   }
 
-  function isConfirmPasswordSame(e: React.ChangeEvent<HTMLInputElement>) {
+  function isConfirmPasswordSame(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
 
     setConfirmPassword(value);
     setIsPasswordSame(value === password);
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const response = await fetch("/api/auth/register", {
@@ -45,12 +47,25 @@ export default function Register() {
     });
     const result = await response.json();
     setMessage(result.message);
-    console.log(message);
+    if (!response.ok) {
+      return;
+    }
+
+    const loginResult = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    if (loginResult?.error) {
+      setMessage("Register succes but automaticly login failed");
+      return;
+    }
+    router.push("/");
   }
 
   return (
-    <div className="mx-5 mt-8">
-      <div className="flex w-full max-w-md flex-col">
+    <div className="mx-5 mt-8 w-full">
+      <div className="flex max-w-md sm:max-w-none sm:w-full flex-col">
         <h1 className="mb-2 text-3xl font-bold">Create an Account</h1>
 
         <p className="mb-5 text-gray-500">
@@ -82,7 +97,7 @@ export default function Register() {
           </div>
           {/* email */}
           <div
-            className={`group border rounded-lg px-3 py-3 ${isEmailInvalid ? "border-black" : "border-red-500"}`}
+            className={`group border rounded-lg px-3 py-3 ${isEmailInvalid ? "border-black" : "border-2 border-red-500"}`}
           >
             <label
               htmlFor="email"
@@ -102,7 +117,7 @@ export default function Register() {
           </div>
           {/* password */}
           <div
-            className={`group border rounded-lg px-3 py-3 ${isPasswordInvalid ? "border-black" : "border-red-500"}`}
+            className={`group border rounded-lg px-3 py-3 ${isPasswordInvalid ? "border-black" : "border-2 border-red-500"}`}
           >
             <label
               htmlFor="password"
@@ -122,7 +137,7 @@ export default function Register() {
           </div>
           {/* confirm password */}
           <div
-            className={`group border rounded-lg px-3 py-3 ${isPasswordSame ? "border-black" : "border-red-500"}`}
+            className={`group border rounded-lg px-3 py-3 ${isPasswordSame ? "border-black" : "border-2 border-red-500"}`}
           >
             <label
               htmlFor="confirmPassword"
@@ -147,8 +162,9 @@ export default function Register() {
             {message}
           </p>
           <button
+            disabled={!isPasswordSame && !isEmailInvalid && !isPasswordInvalid}
             type="submit"
-            className="mt-4 w-full text-white bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="mt-4 w-full text-white bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
           >
             Create Account
           </button>

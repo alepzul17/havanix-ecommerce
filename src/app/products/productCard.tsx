@@ -14,7 +14,6 @@ type Product = {
 };
 
 export default function ProductCard({ products }: { products: Product[] }) {
-  console.log(products);
   return (
     <div className="overflow-hidden">
       <div className="grid grid-cols-2 sm:flex w-screen mb-9">

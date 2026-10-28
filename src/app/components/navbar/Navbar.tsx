@@ -4,10 +4,14 @@ import { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import DesktopMenu from "./DesktopMenu";
 import { useCart } from "@/context/CartContext";
+import { useSession } from "next-auth/react";
+import { PiSignOutFill } from "react-icons/pi";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cart } = useCart();
+  const { cart, setCart } = useCart();
+  const { data: session } = useSession();
 
   return (
     <div className="w-full bg-white border-b-2 border-foreground p-3 flex justify-between items-center">
@@ -35,7 +39,7 @@ export default function Navbar() {
       <MobileMenu isMenuOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
       <Link
         href={"/"}
-        className="text-primary font-bold text-4xl text-center scale-x-125 scale-y-100 tracking-tight"
+        className="text-primary font-bold ml-5 text-4xl text-center scale-x-125 scale-y-100 tracking-tight"
       >
         HAVANIX<span className="text-base align-top">™</span>
       </Link>
@@ -61,22 +65,36 @@ export default function Navbar() {
             <span>{cart.length}</span>
           </div>
         </Link>
-        <Link href={"/login"} className="cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
+        {session?.user?.id ? (
+          <button
+            type="button"
+            className="cursor-pointer"
+            onClick={() => {
+              setCart([]);
+              localStorage.removeItem("cart");
+              signOut({ callbackUrl: "/login" });
+            }}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-            />
-          </svg>
-        </Link>
+            <PiSignOutFill className="text-2xl" />
+          </button>
+        ) : (
+          <Link href={"/login"} className="cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+              />
+            </svg>
+          </Link>
+        )}
       </div>
     </div>
   );

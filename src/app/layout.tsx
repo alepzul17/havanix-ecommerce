@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar/Navbar";
+
 import CartProvider from "@/context/CartContext";
+import AuthSessionProvider from "@/components/SessionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         content="width=device-width, initial-scale=1"
       ></meta>
       <body className="min-h-full flex flex-col">
-        <CartProvider>{children}</CartProvider>
+        <AuthSessionProvider>
+          <CartProvider>{children}</CartProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

@@ -30,7 +30,7 @@ export default function Products({
   );
   const products =
     category === "shoes" ? shoes : category === "watches" ? watches : shirts;
-  console.log(gender);
+
   return (
     <>
       <div className="p-6">

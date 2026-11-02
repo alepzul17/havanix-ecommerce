@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 type Product = {
   id: number;
   title: string;
@@ -26,19 +27,21 @@ export default function Card({ products }: { products: Product[] }) {
             key={item.id}
             className="shrink-0 md:w-70 w-60 hover:border hover:border-black overflow-hidden"
           >
-            <Image
-              src={item.images[0]}
-              alt={item.title}
-              width={200}
-              height={100}
-            />
-            <div className="ml-4">
-              <h4 className="mt-2 text-xl font-semibold text-wrap">
-                {item.title}
-              </h4>
-              <p className="font-extralight">{item.category}</p>
-              <p className="font-extralight">${item.price}</p>
-            </div>
+            <Link href={`/products/${item.id}`}>
+              <Image
+                src={item.images[0]}
+                alt={item.title}
+                width={200}
+                height={100}
+              />
+              <div className="ml-4">
+                <h4 className="mt-2 text-xl font-semibold text-wrap">
+                  {item.title}
+                </h4>
+                <p className="font-extralight">{item.category}</p>
+                <p className="font-extralight">${item.price}</p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>

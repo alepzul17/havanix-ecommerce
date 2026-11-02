@@ -3,10 +3,13 @@ import { Product } from "@/app/api/product";
 
 import { useCart } from "@/context/CartContext";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function AddToCart({ data }: { data: Product }) {
+  const [isAdded, setIsAdded] = useState(false);
   const { status } = useSession();
   const { setCart } = useCart();
+
   async function handleClick() {
     if (status === "loading") return;
 
@@ -27,22 +30,6 @@ export default function AddToCart({ data }: { data: Product }) {
         alert(result.message);
         return;
       }
-
-      setCart((currentCart) => {
-        const existingProduct = currentCart.find((item) => item.id === data.id);
-
-        if (existingProduct) {
-          return currentCart.map((item) =>
-            item.id === data.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          );
-        }
-
-        return [...currentCart, { id: data.id, quantity: 1 }];
-      });
-
-      return;
     }
 
     setCart((currentCart) => {
@@ -56,6 +43,11 @@ export default function AddToCart({ data }: { data: Product }) {
 
       return [...currentCart, { id: data.id, quantity: 1 }];
     });
+
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 2000);
   }
 
   return (
@@ -66,7 +58,7 @@ export default function AddToCart({ data }: { data: Product }) {
         className="mt-7 bg-primary w-full py-3 rounded-xl text-white cursor-pointer hover:bg-orange-400"
         onClick={handleClick}
       >
-        ADD TO CART
+        {isAdded ? "ADDED TO CART ✓" : "ADD TO CART"}
       </button>
     </div>
   );
